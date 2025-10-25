@@ -1,18 +1,14 @@
 'use client';
-import { Toaster } from '@/components/ui/sonner';
-import { TooltipProvider } from '@/components/ui/tooltip';
+import { StackProvider, StackTheme } from '@stackframe/stack';
+import { stackClientApp } from '@/stack/client';
 import { ThemeProvider } from 'next-themes';
-import { SessionProvider } from 'next-auth/react';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-      <SessionProvider>
-        <TooltipProvider>
-          {children}
-          <Toaster />
-        </TooltipProvider>
-      </SessionProvider>
+      <StackProvider app={stackClientApp}>
+        <StackTheme>{children}</StackTheme>
+      </StackProvider>
     </ThemeProvider>
   );
 }

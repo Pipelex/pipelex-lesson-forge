@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '@/styles/globals.css';
 import { Providers } from './providers';
+import { AppSidebar } from '@/components/app-sidebar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,7 +15,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <AppSidebar />
+          <div className="ml-64 transition-all duration-300">{children}</div>
+        </Providers>
       </body>
     </html>
   );
