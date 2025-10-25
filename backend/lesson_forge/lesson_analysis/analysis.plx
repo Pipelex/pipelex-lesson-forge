@@ -38,8 +38,6 @@ Analyzes the extracted text pages from the course document to identify and struc
 inputs = { pages = "Page[]" }
 output = "CourseOverview"
 model = "llm_for_structuring"
-# model_to_structure = "llm_for_structuring"
-# structuring_method = "preliminary_text"
 system_prompt = """
 You are an expert educational content analyst. Your task is to analyze course materials and produce a structured outputs"
 """
