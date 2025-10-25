@@ -32,11 +32,12 @@ export enum PipelineState {
  * Matches Python PipelineRequest model.
  */
 export interface PipelineRequest {
+  pipe_code?: string | null;
+  plx_content?: string | null;
   inputs?: PipelineInputs | null;
   output_name?: string | null;
   output_multiplicity?: PipeOutputMultiplicity | null;
   dynamic_output_concept_code?: string | null;
-  plx_content?: string | null;
 }
 
 export interface PipelineResponse extends ApiResponse {

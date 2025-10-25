@@ -3,6 +3,7 @@ import { useUser } from '@stackframe/stack';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import studentsData from '@/app/students/students.json';
 
 export default function Home() {
   const user = useUser();
@@ -12,7 +13,7 @@ export default function Home() {
       <div className="flex min-h-screen flex-col items-center justify-center bg-background p-8">
         <div className="max-w-md w-full space-y-8 text-center">
           <div className="space-y-2">
-            <h1 className="text-4xl font-semibold tracking-tight">Welcome to Pipelex</h1>
+            <h1 className="text-4xl font-semibold tracking-tight">Welcome to Lesson Forge</h1>
             <p className="text-muted-foreground">Build and visualize AI workflows</p>
           </div>
 
@@ -35,6 +36,9 @@ export default function Home() {
     );
   }
 
+  const studentCount = studentsData.length;
+  const courseCount = 1; // Placeholder - update when courses are dynamic
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background p-8">
       <div className="max-w-2xl w-full space-y-8">
@@ -42,44 +46,52 @@ export default function Home() {
           <h1 className="text-4xl font-semibold tracking-tight">
             Welcome back, {user.displayName}
           </h1>
-          <p className="text-muted-foreground">You are successfully signed in</p>
+          <p className="text-muted-foreground">Your teaching dashboard</p>
         </div>
 
-        <div className="grid gap-6">
+        <div className="grid gap-6 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Your Account</CardTitle>
-              <CardDescription>Account details and information</CardDescription>
+              <CardTitle className="text-2xl">{studentCount}</CardTitle>
+              <CardDescription>Total Students</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex justify-between py-2 border-b">
-                <span className="text-sm font-medium text-muted-foreground">Email</span>
-                <span className="text-sm">{user.primaryEmail}</span>
-              </div>
-              <div className="flex justify-between py-2">
-                <span className="text-sm font-medium text-muted-foreground">User ID</span>
-                <span className="text-sm font-mono">{user.id}</span>
-              </div>
+            <CardContent>
+              <Button className="w-full" variant="outline" asChild>
+                <Link href="/students">View Students</Link>
+              </Button>
             </CardContent>
           </Card>
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button className="flex-1" asChild>
-              <Link href="/dashboard">Go to Dashboard</Link>
-            </Button>
-            <Button className="flex-1" variant="outline" asChild>
-              <Link href="/ok">OK Page</Link>
-            </Button>
-          </div>
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl">{courseCount}</CardTitle>
+              <CardDescription>Active Courses</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button className="w-full" variant="outline" asChild>
+                <Link href="/courses">View Courses</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button variant="outline" className="flex-1" asChild>
-              <Link href="/handler/account-settings">Account Settings</Link>
-            </Button>
-            <Button variant="destructive" className="flex-1" asChild>
-              <Link href="/handler/sign-out">Sign Out</Link>
-            </Button>
-          </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Course Themes</CardTitle>
+            <CardDescription>Available teaching materials</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">General education materials available</p>
+          </CardContent>
+        </Card>
+
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Button variant="outline" className="flex-1" asChild>
+            <Link href="/handler/account-settings">Account Settings</Link>
+          </Button>
+          <Button variant="destructive" className="flex-1" asChild>
+            <Link href="/handler/sign-out">Sign Out</Link>
+          </Button>
         </div>
       </div>
     </div>

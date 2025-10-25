@@ -4,17 +4,18 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { LogoutButton } from '@/components/logout-button';
 
 export function AppSidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const pathname = usePathname();
 
   const navItems = [
-    { href: '/dashboard', label: 'Dashboard' },
-    { href: '/ok', label: 'OK' },
+    { href: '/courses', label: 'Courses' },
+    { href: '/students', label: 'Students' },
   ];
 
   return (
@@ -41,7 +42,7 @@ export function AppSidebar() {
             onClick={() => setIsOpen(!isOpen)}
             className={cn(!isOpen && 'mx-auto')}
           >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <Menu className="h-5 w-5" />
           </Button>
         </div>
 
@@ -50,8 +51,12 @@ export function AppSidebar() {
             {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
                 <Button
-                  variant={pathname === item.href ? 'default' : 'ghost'}
-                  className={cn('w-full justify-start', !isOpen && 'justify-center px-2')}
+                  variant="outline"
+                  className={cn(
+                    'w-full justify-start bg-background',
+                    pathname === item.href && 'border-primary',
+                    !isOpen && 'justify-center px-2',
+                  )}
                 >
                   {isOpen ? item.label : item.label[0]}
                 </Button>
@@ -59,6 +64,12 @@ export function AppSidebar() {
             ))}
           </div>
         </nav>
+
+        {isOpen && (
+          <div className="p-4 border-t">
+            <LogoutButton />
+          </div>
+        )}
       </div>
     </div>
   );
