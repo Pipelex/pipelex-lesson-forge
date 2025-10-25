@@ -25,11 +25,12 @@ export async function executePipe(
 
   try {
     const requestBody: PipelineRequest = {
+      pipe_code: pipeCode,
       inputs,
       plx_content: plxContent,
     };
 
-    const response = await fetch(`${PIPELEX_API_BASE_URL}/api/v1/pipeline/${pipeCode}/execute`, {
+    const response = await fetch(`${PIPELEX_API_BASE_URL}/api/v1/pipeline/execute`, {
       method: 'POST',
       headers,
       body: JSON.stringify(requestBody),

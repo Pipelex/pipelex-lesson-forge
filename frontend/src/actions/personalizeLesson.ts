@@ -2,7 +2,7 @@
 
 import type { Student } from '@/types/student';
 import type { CourseSection } from '@/types/course';
-import { pipeExecute } from './pipeExecute';
+import { executePipe } from './pipeExecute';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
@@ -26,7 +26,7 @@ export async function personalizeLesson(
 
     // Map student data to student_profile format
     const studentProfile = {
-      concept: 'lesson_personalization.StudentProfile',
+      concept: 'section_personalization.StudentProfile',
       content: {
         current_performance: student.current_performance,
         learns_best_with: student.learns_best_with,
@@ -42,38 +42,26 @@ export async function personalizeLesson(
       },
     };
 
-    // Create lesson input from section
-    const lesson = {
-      concept: 'lesson_personalization.Lesson',
+    // Create section input from course section
+    const sectionInput = {
+      concept: 'section_personalization.Section',
       content: {
-        course_overview: {
-          main_theme: section.title,
-          key_learnings: [],
-          sections: [
-            {
-              title: section.title,
-              description: section.description,
-              text: section.text,
-            },
-          ],
-        },
+        title: section.title,
+        description: section.description,
+        text: section.text,
       },
     };
 
     // Execute the pipe
-    const result = await pipeExecute({
-      pipe_code: 'personalise_lesson',
-      plx_content: plxContent,
-      inputs: {
-        student_profile: studentProfile,
-        lesson: lesson,
-      },
+    const result = await executePipe('personalise_section', plxContent, {
+      student_profile: studentProfile,
+      section: sectionInput,
     });
 
     if (!result.success) {
       return {
         success: false,
-        error: result.error || 'Failed to personalize lesson',
+        error: result.error?.message || 'Failed to personalize lesson',
       };
     }
 
