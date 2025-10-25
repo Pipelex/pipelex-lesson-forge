@@ -1,0 +1,4 @@
+
+[llm.presets]
+
+llm_for_data_synthesis = { model = "gpt-4o-mini", temperature = 0.9 }
