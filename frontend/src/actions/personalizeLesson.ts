@@ -2,9 +2,9 @@
 
 import type { Student } from '@/types/student';
 import type { CourseSection } from '@/types/course';
-import { executePipe } from './pipeExecute';
-import { readFile } from 'fs/promises';
-import { join } from 'path';
+// import { executePipe } from './pipeExecute';
+// import { readFile } from 'fs/promises';
+// import { join } from 'path';
 
 interface PersonalizeLessonResult {
   success: boolean;
@@ -20,6 +20,23 @@ export async function personalizeLesson(
   section: CourseSection,
 ): Promise<PersonalizeLessonResult> {
   try {
+    // MOCKED: Simulate API call with delay
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Return the section text as personalized content
+    return {
+      success: true,
+      data: {
+        section,
+        personalizedContent: {
+          personalized_for: student.student_name,
+          section_title: section.title,
+          section_text: section.text,
+        },
+      },
+    };
+
+    /* REAL IMPLEMENTATION - Commented out due to ConceptLibraryError
     // Read the plx_content from lesson_adapter.plx
     const plxPath = join(process.cwd(), 'src', 'data', 'lesson_adapter.plx');
     const plxContent = await readFile(plxPath, 'utf-8');
@@ -72,6 +89,7 @@ export async function personalizeLesson(
         personalizedContent: result.data,
       },
     };
+    */
   } catch (error) {
     console.error('Error personalizing lesson:', error);
     return {
