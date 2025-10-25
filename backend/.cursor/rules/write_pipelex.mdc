@@ -179,7 +179,7 @@ class Invoice(StructuredContent):
         return v
 ```
 
-**Location:** Create models in `my_project/some_domain/some_domain_struct.py`. Classes inheriting from `StructuredContent` are automatically discovered.
+**Location:** Create models in `lesson_forge/some_domain/some_domain_struct.py`. Classes inheriting from `StructuredContent` are automatically discovered.
 
 ### Decision Rules for Agents
 
