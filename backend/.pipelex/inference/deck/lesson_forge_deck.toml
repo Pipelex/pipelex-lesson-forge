@@ -1,0 +1,5 @@
+
+[llm.presets]
+
+# llm_for_data_synthesis = { model = "gpt-4o-mini", temperature = 0.9 }
+llm_for_data_synthesis = { model = "base-claude", temperature = 0.9 }
