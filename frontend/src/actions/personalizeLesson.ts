@@ -1,0 +1,94 @@
+'use server';
+
+import type { Student } from '@/types/student';
+import type { CourseSection } from '@/types/course';
+import { pipeExecute } from './pipeExecute';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
+
+interface PersonalizeLessonResult {
+  success: boolean;
+  data?: {
+    section: CourseSection;
+    personalizedContent: unknown;
+  };
+  error?: string;
+}
+
+export async function personalizeLesson(
+  student: Student,
+  section: CourseSection,
+): Promise<PersonalizeLessonResult> {
+  try {
+    // Read the plx_content from lesson_adapter.plx
+    const plxPath = join(process.cwd(), 'src', 'data', 'lesson_adapter.plx');
+    const plxContent = await readFile(plxPath, 'utf-8');
+
+    // Map student data to student_profile format
+    const studentProfile = {
+      concept: 'lesson_personalization.StudentProfile',
+      content: {
+        current_performance: student.current_performance,
+        learns_best_with: student.learns_best_with,
+        pace: student.pace,
+        complexity: student.complexity,
+        strengths: student.strengths,
+        needs_help_with: student.needs_help_with,
+        prior_knowledge: student.prior_knowledge,
+        hobbies_interests: student.hobbies_interests,
+        career_goals: student.career_goals,
+        example_style: student.example_style,
+        question_format: student.question_format,
+      },
+    };
+
+    // Create lesson input from section
+    const lesson = {
+      concept: 'lesson_personalization.Lesson',
+      content: {
+        course_overview: {
+          main_theme: section.title,
+          key_learnings: [],
+          sections: [
+            {
+              title: section.title,
+              description: section.description,
+              text: section.text,
+            },
+          ],
+        },
+      },
+    };
+
+    // Execute the pipe
+    const result = await pipeExecute({
+      pipe_code: 'personalise_lesson',
+      plx_content: plxContent,
+      inputs: {
+        student_profile: studentProfile,
+        lesson: lesson,
+      },
+    });
+
+    if (!result.success) {
+      return {
+        success: false,
+        error: result.error || 'Failed to personalize lesson',
+      };
+    }
+
+    return {
+      success: true,
+      data: {
+        section,
+        personalizedContent: result.data,
+      },
+    };
+  } catch (error) {
+    console.error('Error personalizing lesson:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
+}
