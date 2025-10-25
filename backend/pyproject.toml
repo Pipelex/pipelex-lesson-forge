@@ -20,6 +20,11 @@ dependencies = [
     "pipelex[mistralai,anthropic,google,google-genai,bedrock,fal]==0.13.1",
 ]
 
+
+[tool.uv.sources]
+pipelex = { path = "../../pipelex", editable = true }
+
+
 [project.optional-dependencies]
 dev = [
     "boto3-stubs>=1.35.24",

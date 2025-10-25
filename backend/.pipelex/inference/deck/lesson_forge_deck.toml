@@ -1,5 +1,10 @@
 
 [llm.presets]
 
-# llm_for_data_synthesis = { model = "gpt-4o-mini", temperature = 0.9 }
-llm_for_data_synthesis = { model = "base-claude", temperature = 0.9 }
+llm_for_data_synthesis = { model = "gpt-4o-mini", temperature = 0.9 }
+# llm_for_data_synthesis = { model = "base-claude", temperature = 0.9 }
+
+llm_for_teaching = { model = "gemini-2.5-flash-lite", temperature = 0.1 }
+# llm_for_teaching = { model = "gpt-4o-mini", temperature = 0.1 }
+# llm_for_structuring = { model = "gpt-4o-mini", temperature = 0.1 }
+llm_for_structuring = { model = "base-claude", temperature = 0.1 }
