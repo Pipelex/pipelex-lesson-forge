@@ -937,7 +937,7 @@ wheels = [
 [[package]]
 name = "lesson-forge"
 version = "0.4.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "pipelex", extra = ["anthropic", "bedrock", "fal", "google", "google-genai", "mistralai"] },
 ]

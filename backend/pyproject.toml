@@ -37,6 +37,10 @@ dev = [
     "types-PyYAML>=6.0.12.20250326",
 ]
 
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project.urls]
 Homepage = "https://pipelex.com"
 Repository = "https://github.com/Pipelex/pipelex-lesson-forge" # Replace with your repository URL

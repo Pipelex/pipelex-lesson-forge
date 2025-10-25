@@ -8,6 +8,7 @@ class Sample(StructuredContent):
     student_name: str = Field(description="The name of the student")
 
     # Basic Info
+    email: str = Field(description="The email of the student")
     current_performance: str = Field(
         description="The student's current performance level", json_schema_extra={"choices": ["Struggling", "Average", "Advanced"]}
     )

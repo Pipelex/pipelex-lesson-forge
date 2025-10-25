@@ -55,7 +55,7 @@ Consider:
 - Real-world situations that would test the data's completeness
 
 Generate a diverse set of $nb_samples sample cases to ensure comprehensive coverage of all expected situations.
-For each one, generate only a concise characterization in one or two sentences max.
+For each one, generate only a short characterization in one or two sentences max + the name of the student.
 """
 
 
